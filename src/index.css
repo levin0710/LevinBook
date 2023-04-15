@@ -1,11 +1,13 @@
 :root {
-  --primary-color: #007bff; /* bright blue */
+  --primary-color: #94dcee; /* vibrant pastel blue */
   --secondary-color: #343a40; /* dark gray */
   --background-color: #f8f9fa; /* light gray */
+
+  background-color: #e6e8ea;
 }
 
-/* Fonts */
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
 
 body {
   font-family: 'Montserrat', sans-serif;
