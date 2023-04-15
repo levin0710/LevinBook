@@ -1,0 +1,36 @@
+:root {
+  --primary-color: #007bff; /* bright blue */
+  --secondary-color: #343a40; /* dark gray */
+  --background-color: #f8f9fa; /* light gray */
+}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Example usage: */
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+h1 {
+  color: var(--primary-color);
+}
+
+.container {
+  background-color: var(--background-color);
+  padding: 20px;
+}
+
+input {
+  border: 1px solid var(--secondary-color);
+  padding: 10px;
+  border-radius: 5px;
+}
