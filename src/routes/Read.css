@@ -19,7 +19,7 @@
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
-    color: #333;
+    color: black;
   }
   
   .ReadPosts .post-header .post-title {
@@ -31,7 +31,7 @@
   .ReadPosts .post-header .post-description {
     margin-top: 10px;
     font-size: 16px;
-    color: #555;
+    color: black;
   }
   
   .ReadPosts .post-image {
@@ -86,4 +86,7 @@
     border-bottom: 1px solid #ddd;
   }
   
+  p {
+    text-align: justify;
+  }
   

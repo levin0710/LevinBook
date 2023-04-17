@@ -40,7 +40,7 @@ const PostInFeed = ({props}) => {
   return (
       <Link style={{ textDecoration: 'none' }} to={'read/'+ props.id}>
         <div className="post">
-          <p className="post-content">{getTimeAgoString(props.date)}</p>
+          <p className="post-time">{getTimeAgoString(props.date)}</p>
           <h2 className="post-title">{props.title}</h2>
           <p className="post-content">{props.likes} Upvotes</p>
           

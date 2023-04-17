@@ -1,10 +1,10 @@
 :root {
-  --primary-color: #008080; /* a dark cyan */
-  --secondary-color: #2c3e50; /* a dark blue */
-  --accent-color: #f1c40f; /* a bright yellow */
+  --primary-color: #7A6649; /* a dark cyan */
+  --secondary-color: #C2A274; /* a dark blue */
+  --accent-color: #7A5725; /* a bright yellow */
   --background-color: #f8f9fa; /* a light gray */
   
-  background-color: var(--secondary-color);
+  background-color: var(--background-color);
 }
 
 body {

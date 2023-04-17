@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between; /* center the content horizontally */
     align-items: center;
-    background-color: var(--background-color);
+    background-color: var(--secondary-color);
     height: 50px; /* set the height of the navbar to 50px */
     padding: 0 20px; /* reduce the padding on the top and sides */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -42,7 +42,7 @@
   .top-navbar-links a {
     margin-left: 20px;
     text-decoration: none;
-    color: var(--primary-color);
+    color:   var(--primary-color);;
     font-weight: bold;
     transition: color 0.2s ease-in-out;
   }

@@ -1,13 +1,13 @@
 @import url('../index.css');
 
 .post {
-    background-color:  var(--background-color);
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+   
+    border-radius: 8px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
     padding: 20px;
     margin-bottom: 20px;
     text-align: left;
+
   }
   
   .post-title {
@@ -21,6 +21,13 @@
   .post-content {
     font-size: 18px;
     line-height: 1.4;
-    color: var(--secondary-color);;
+    color: var(--primary-color);;
+  }
+
+  .post-time {
+    font-size: 18px;
+    line-height: 1.4;
+    color: black;
+    font-weight: bold;
   }
   
