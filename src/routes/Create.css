@@ -1,8 +1,10 @@
+@import url('../index.css');
+
 .Create {
     max-width: 550px;
     margin: 0 auto;
     padding: 40px;
-    background-color: #f5f5f5;
+    background-color: var(--background-color);
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-top: 70px;
@@ -19,14 +21,13 @@
     height: 200px;
     resize: none;
   }
-  .Create input[type='text'],
-  .Create textarea {
+  .Create input[type='text'] {
     display: block;
     width: 100%;
     padding: 10px;
     font-size: 16px;
     border: none;
-    border-bottom: 2px solid #0077cc;
+    border-bottom: 2px solid var(--primary-color);
     margin-bottom: 25px;
     margin-top: 10px;
     transition: border-bottom 0.2s ease-in-out;
@@ -35,11 +36,11 @@
   .Create input[type='text']:focus,
   .Create textarea:focus {
     outline: none;
-    border-bottom-color: #0055b3;
+    border-bottom-color: var(--primary-color);;
   }
   
-  .Create button[type='submit'] {
-    background-color: #0077cc;
+  .Create button {
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
@@ -49,7 +50,23 @@
     transition: background-color 0.2s ease-in-out;
   }
   
-  .Create button[type='submit']:hover {
-    background-color: #0055b3;
+  .Create button:hover {
+    background-color: var(--accent-color);;
   }
+  
+
+  .Create textarea {
+    display: block;
+    width: 100%;
+    max-width: 550px;
+    height: 200px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid var(--primary-color);;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    transition: border-bottom 0.2s ease-in-out;
+  }
+  
   

@@ -1,13 +1,11 @@
 :root {
-  --primary-color: #94dcee; /* vibrant pastel blue */
-  --secondary-color: #343a40; /* dark gray */
-  --background-color: #f8f9fa; /* light gray */
-
-  background-color: #e6e8ea;
+  --primary-color: #008080; /* a dark cyan */
+  --secondary-color: #2c3e50; /* a dark blue */
+  --accent-color: #f1c40f; /* a bright yellow */
+  --background-color: #f8f9fa; /* a light gray */
+  
+  background-color: var(--secondary-color);
 }
-
-
-
 
 body {
   font-family: 'Montserrat', sans-serif;

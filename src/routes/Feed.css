@@ -1,3 +1,5 @@
+@import url('../index.css');
+
 .feed {
   max-width: 1000px; /* set maximum width */
   margin: 0 auto; /* center the container horizontally */
@@ -18,10 +20,11 @@
   margin-right: 10px;
   font-size: 1.2rem;
   font-weight: bold;
+  color: var(--background-color);
 }
 
   .Order button {
-    background-color: #0077cc;
+    background-color: var(--primary-color);
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -32,7 +35,7 @@
   }
   
   .Order button:hover {
-    background-color: #024468;
+    background-color: var(--accent-color);
     color: #fff;
   }
   

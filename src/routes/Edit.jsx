@@ -1,24 +1,25 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { supabase } from '../client'
+import './Create.css'
 
 
-
-const Edit = (props) => {
+const Edit = ({data}) => {
 
     const {id} = useParams();
-    const [post, setPost] = useState({id: null, title: "", time: "", image: "", likes: 0, comments: []});
+    const [post, setPost] = useState({id: null, title: "", time: "", image: "", description: ""});
 
-    // useEffect(() => {
-    //     const result = props.filter(item => String(item.id) === id)[0];
-    //     setPost({title: result.title, time: result.time, image: result.image, likes: result.likes,  comments: result.comments});
-    // }, [props, id]);
+    useEffect(() => {
+        const result = data.filter(item => String(item.id) === id)[0];
+        setPost({title: result.title, time: result.time, image: result.image, description: result.description});
+    }, [data, id]);
 
     // DELETE post
     const deletePost = async (event) => {
         event.preventDefault();
 
         await supabase
-        .from('character')
+        .from('Posts')
         .delete()
         .eq('id', id); 
 
@@ -38,11 +39,11 @@ const Edit = (props) => {
         event.preventDefault();
 
         await supabase
-        .from('character')
-        .update({title: result.title, time: result.time, image: result.image, likes: result.likes,  comments: result.comments})
+        .from('Posts')
+        .update({title: post.title, time: post.time, image: post.image, description: post.description})
         .eq('id', id);
 
-        window.location = "/";
+        window.location = '/';
     }
     
     return (
@@ -60,10 +61,10 @@ const Edit = (props) => {
           <label>
             Content:
             <textarea
-              name="content"
+              name="description"
               value={post.description}
               onChange={handleChange}
-              className='content'
+              className='description'
             />
           </label>
           <label>
