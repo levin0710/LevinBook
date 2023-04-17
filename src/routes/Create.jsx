@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Create.css'
+import { supabase } from '../client'
 
 const Create = () => {
 
-    const [post, setPost] = useState({title: '', content: '', image: ''});
+    const [post, setPost] = useState({title: '', description: '', image: ''});
 
     const handleChange = (e) => {
         const newPostForm = {}
@@ -18,7 +19,7 @@ const Create = () => {
         console.log("CALLING POST")
         await supabase
         .from('Posts')
-        .insert({title: post.title, content: post.content, image: post.image})
+        .insert({title: post.title, description: post.description, image: post.image})
         .select();
 
         window.location = "/";
@@ -36,12 +37,12 @@ const Create = () => {
             />
           </label>
           <label>
-            Content:
+            Description:
             <textarea
-              name="content"
-              value={post.content}
+              name="description"
+              value={post.description}
               onChange={handleChange}
-              className='content'
+              className='description'
             />
           </label>
           <label>

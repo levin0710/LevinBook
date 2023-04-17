@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     display: flex;
-    justify-content: center; /* center the content horizontally */
+    justify-content: space-between; /* center the content horizontally */
     align-items: center;
     background-color: #f8f9fa;
     height: 50px; /* set the height of the navbar to 50px */
@@ -14,7 +14,7 @@
   
   .search-bar {
     flex: 1;
-    max-width: 600px; /* set a maximum width for the search bar */
+    max-width: 500px; /* set a maximum width for the search bar */
     margin: 0 20px;
   }
   
