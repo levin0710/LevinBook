@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import './NavBar.css';
 
-const NavBar = () => {
+const NavBar = ({data, onSearch}) => {
+  
+
+  const searchItems = searchValue => {
+    if (searchValue !== "") {
+      const filteredData = data.filter(item =>
+        item.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      onSearch(filteredData); // add this line
+    } else {
+      onSearch(data); // add this line
+    }
+  };
+  
+
   return (
     <div>
       <div className="top-navbar">
         <div className="top-navbar-logo">LevinBook</div>
         <div className="search-bar">
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." 
+          onChange={(inputString) => searchItems(inputString.target.value)}/>
         </div>
         <div className="top-navbar-links">
           <Link className="link" to="/">
@@ -22,7 +37,7 @@ const NavBar = () => {
 
       </div>
       <div className="app-container">
-        <Outlet />
+        <Outlet/>
       </div>
     </div>  
   );

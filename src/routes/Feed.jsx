@@ -12,7 +12,6 @@ const Feed = (props) => {
 
     useEffect(() => {
         setPosts(props.data);
-        console.log(posts)
     }, [props]);
 
     const sortBy = async (event) => {

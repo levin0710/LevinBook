@@ -1,13 +1,15 @@
 import { React, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'
+import { FaThumbsUp } from 'react-icons/fa';
+import { supabase } from '../client'
 import './Read.css'
 
 const Read = ({data}) => {
 
     const {id} = useParams();
     const [post, setPost] = useState({id: null, title: "", time: "", image: "", likes: 0, description: ''});
-
+    const [comments, setComments] = useState([]);
 
     function getTimeAgoString(timestamp) {
     const milliseconds = Date.now() - Date.parse(timestamp);
@@ -45,15 +47,55 @@ const Read = ({data}) => {
     useEffect(() => {
         const result = data.filter(item => String(item.id) === id)[0];
         setPost({title: result.title, time: result.time, image: result.image, likes: result.likes, description: result.description});
+
+        const fetchComments = async () => {
+          const { data: comments, error } = await supabase
+            .from('Comments')
+            .select()
+            .eq('postId', id)
+            .order('time', { ascending: false });
+          if (error) console.log(error);
+          else setComments(comments);
+        };
+        
+        fetchComments();
+
     }, [data, id]);
 
-    const handleUpvote = () => {
+    const handleUpvote = async (event) => {
         // handle upvote logic
+        setPost((prevState) => ({ ...prevState, likes: prevState.likes + 1 }));
+        event.preventDefault();
+        await supabase
+        .from('Posts')
+        .update({likes: post.likes})
+        .eq('id', id);
+
     }
 
-    const handleComment = (comment) => {
-        // handle comment logic
-    }
+    const createComment = async (event) => {
+      event.preventDefault();
+      const comment = event.target.comment.value
+      event.target.reset();
+      console.log("CALLING POST")
+      await supabase
+      .from('Comments')
+      .insert({comment: comment, postId: id})
+      .select();
+
+      const fetchComments = async () => {
+        const { data: comments, error } = await supabase
+          .from('Comments')
+          .select()
+          .eq('postId', id)
+          .order('time', { ascending: false });
+        if (error) console.log(error);
+        else setComments(comments);
+      };
+      
+      fetchComments();
+  }
+
 
     return (
         <div className="ReadPosts">
@@ -66,26 +108,27 @@ const Read = ({data}) => {
                 <img src={post.image} alt="post image"/>
             </div>
             <div className="post-interactions">
-                <button className="upvote-button" onClick={handleUpvote}>Upvote</button>
+                <button className="upvote-button" onClick={handleUpvote}>
+                  <FaThumbsUp /> {post.likes}
+                </button>
                 <Link tyle={{ textDecoration: 'none' }} to={'../../edit/'+ id}>
                     <button className="edit-button">Edit</button>
                 </Link>
             </div>
             <div className="post-comments">
                 <h3>Comments</h3>
-                {/* {post.comments.map((comment, index) => (
+                {comments && comments.length > 0 ?
+                comments.map((comment, index) => (
                     <div key={index} className="comment">
-                        <p>{comment}</p>
+                        <h6> {getTimeAgoString(comment.time)}</h6>
+                        <p>{comment.comment}</p>
                     </div>
-                ))}
-                <form onSubmit={(event) => {
-                        event.preventDefault();
-                        handleComment(event.target.comment.value);
-                        event.target.reset();
-                    }}>
+                )) : <h4>{'Be the first comment!'}</h4>
+              }
+                <form onSubmit={createComment}>
                     <input type="text" name="comment" placeholder="Add a comment" />
                     <button type="submit">Comment</button>
-                </form> */}
+                </form>
             </div>
         </div>  
     )

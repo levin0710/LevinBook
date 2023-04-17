@@ -42,7 +42,7 @@ const Edit = (props) => {
         .update({title: result.title, time: result.time, image: result.image, likes: result.likes,  comments: result.comments})
         .eq('id', id);
 
-        window.location = "/gallery";
+        window.location = "/";
     }
     
     return (
