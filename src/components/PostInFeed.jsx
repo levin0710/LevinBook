@@ -2,6 +2,7 @@ import React from 'react';
 import './PostInFeed.css'
 import { Link } from 'react-router-dom'
 
+
 const PostInFeed = ({props}) => {
   
   function getTimeAgoString(timestamp) {
@@ -40,9 +41,12 @@ const PostInFeed = ({props}) => {
   return (
       <Link style={{ textDecoration: 'none' }} to={'read/'+ props.id}>
         <div className="post">
-          <p className="post-time">{getTimeAgoString(props.date)}</p>
-          <h2 className="post-title">{props.title}</h2>
-          <p className="post-content">{props.likes} Upvotes</p>
+          <img src={props.image} alt={props.title} className="post-mini-image" />
+          <div className="post-content">
+            <p className="post-time">{getTimeAgoString(props.date)}</p>
+            <h2 className="post-title">{props.title}</h2>
+            <p className="post-likes">{props.likes} Upvotes</p>
+          </div>
           
         </div>
       </Link>

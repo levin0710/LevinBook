@@ -5,8 +5,10 @@
     border-radius: 8px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
     padding: 20px;
-    margin-bottom: 20px;
     text-align: left;
+    display: flex;
+    align-items: left;
+    margin-bottom: 1rem;
 
   }
   
@@ -22,6 +24,7 @@
     font-size: 18px;
     line-height: 1.4;
     color: var(--primary-color);;
+    flex: 1;
   }
 
   .post-time {
@@ -29,5 +32,15 @@
     line-height: 1.4;
     color: black;
     font-weight: bold;
+  }
+
+  .post-mini-image {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    box-shadow: 0 0 0 3px var(--primary-color);;
+    border-radius: 4px;
   }
   

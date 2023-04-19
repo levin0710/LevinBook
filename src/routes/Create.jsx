@@ -5,13 +5,23 @@ import { supabase } from '../client'
 const Create = () => {
 
     const [post, setPost] = useState({title: '', description: '', image: ''});
+    const [inputType, setInputType] = useState('upload');
+
+    const handleInputTypeChange = (e) => {
+      setInputType(e.target.value);
+    }
 
     const handleChange = (e) => {
-        const newPostForm = {}
-        const newValue = e.target.value;
-        const key = e.target.name;
-        post[key] = newValue;
-        setPost((post) => ({...post, ...newPostForm}));
+        if (e.target.name === "image" && inputType =='upload') {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setPost((post) => ({...post, image: reader.result}));
+            };
+        } else {
+            setPost((post) => ({...post, [e.target.name]: e.target.value}));
+        }
     }
 
     const createPost = async (event) => {
@@ -26,7 +36,7 @@ const Create = () => {
     }
     return (
         <div className="Create">
-        <form className-="Create-form" onSubmit={createPost}>
+        <form className="Create-form" onSubmit={createPost}>
           <label>
             Title:
             <input
@@ -45,19 +55,52 @@ const Create = () => {
               className='description'
             />
           </label>
-          <label>
-            Image URL:
-            <input
-              type="text"
-              name="image"
-              value={post.image}
-              onChange={handleChange}
-            />
-          </label>
+        <div>  
+          <div className='radioButtons'>
+            <div className='radioButton'>
+              <input 
+                type="radio" 
+                name="inputType" 
+                value="upload" 
+                checked={inputType === "upload"}
+                onChange={handleInputTypeChange}
+              />
+              <label>Upload Image</label>
+              </div>
+            
+              <div className='radioButton'>
+              <input 
+                type="radio" 
+                name="inputType" 
+                value="url" 
+                checked={inputType === "url"}
+                onChange={handleInputTypeChange}
+              />
+              <label>Image URL</label>
+            </div>
+          </div>
+        {inputType === "upload" && (
+          <input
+            type="file"
+            name="image"
+            accept={"image/*" && "video/*"}
+            onChange={handleChange}
+          />
+      )}
+      {inputType === "url" && (
+          <input
+            type="text"
+            name="image"
+            value={post.image}
+            onChange={handleChange}
+          />
+      )}
+      </div>
           <button type="submit">Submit</button>
       </form>
     </div> 
     );
 }
 
-export default Create;
+
+export default Create

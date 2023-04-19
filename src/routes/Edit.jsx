@@ -27,12 +27,17 @@ const Edit = ({data}) => {
     }
 
     const handleChange = (e) => {
-        const newPostForm = {}
-        const newValue = e.target.value;
-        const key = e.target.name;
-        post[key] = newValue;
-        setPost((post) => ({...post, ...newPostForm}));
-    }
+      if (e.target.name === "image") {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = () => {
+              setPost((post) => ({...post, image: reader.result}));
+          };
+      } else {
+          setPost((post) => ({...post, [e.target.name]: e.target.value}));
+      }
+  }
 
     // UPDATE post
     const updatePost = async (event) => {
@@ -70,9 +75,9 @@ const Edit = ({data}) => {
           <label>
             Image URL:
             <input
-              type="text"
+              type="file"
               name="image"
-              value={post.image}
+              accept="image/*"
               onChange={handleChange}
             />
           </label>

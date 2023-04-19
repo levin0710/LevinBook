@@ -35,7 +35,7 @@ const Feed = (props) => {
             {
                 posts && posts.length > 0 ?
                 posts.map((post,index) => 
-                   <PostInFeed props={{title: post.title, date: post.time, id: post.id, likes: post.likes}}/>
+                   <PostInFeed props={{image: post.image, title: post.title, date: post.time, id: post.id, likes: post.likes}}/>
                 ) : <h2>{'No Posts Yet 😞'}</h2>
             }
         </div>  

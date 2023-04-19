@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { FaThumbsUp } from 'react-icons/fa';
 import { supabase } from '../client'
+import * as fileType from 'file-type';
 import './Read.css'
 
 const Read = ({data}) => {
@@ -10,6 +11,7 @@ const Read = ({data}) => {
     const {id} = useParams();
     const [post, setPost] = useState({id: null, title: "", time: "", image: "", likes: 0, description: ''});
     const [comments, setComments] = useState([]);
+    const [mediaT, setMediaType] = useState("")
 
     function getTimeAgoString(timestamp) {
     const milliseconds = Date.now() - Date.parse(timestamp);
@@ -46,6 +48,22 @@ const Read = ({data}) => {
 
     useEffect(() => {
         const result = data.filter(item => String(item.id) === id)[0];
+        // const media = result.image;
+        
+        // const setType = async () => {
+          
+        // const fileBuffer = await fetch(media).then(response => response.arrayBuffer());
+        // const fileMime = fileType(fileBuffer)?.mime;
+        //   let mediaType = '';
+        //   if (fileMime?.startsWith('video/')) {
+        //     mediaType = 'video';
+        //   } else if (fileMime?.startsWith('image/')) {
+        //     mediaType = 'image';
+        //   }
+        //   setMediaType(mediaType);
+        // }
+
+        // setType();
         setPost({title: result.title, time: result.time, image: result.image, likes: result.likes, description: result.description});
 
         const fetchComments = async () => {
@@ -105,7 +123,16 @@ const Read = ({data}) => {
                 <p className="post-description">{post.description}</p>
             </div>
             <div className="post-image">
+              {mediaT === 'video' ? (
+                    <video controls>
+                        <source src={post.image} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                ) : (
                 <img src={post.image} alt="post image"/>
+                )
+              }
+
             </div>
             <div className="post-interactions">
                 <button className="upvote-button" onClick={handleUpvote}>
