@@ -4,13 +4,16 @@ import { supabase } from '../client'
 
 const Create = () => {
 
-    const [post, setPost] = useState({title: '', description: '', image: ''});
+    const [post, setPost] = useState({title: '', description: '', image: '', flag: ''});
     const [inputType, setInputType] = useState('upload');
+
 
     const handleInputTypeChange = (e) => {
       setInputType(e.target.value);
     }
-
+    
+  
+  
     const handleChange = (e) => {
         if (e.target.name === "image" && inputType =='upload') {
             const file = e.target.files[0];
@@ -29,7 +32,7 @@ const Create = () => {
         console.log("CALLING POST")
         await supabase
         .from('Posts')
-        .insert({title: post.title, description: post.description, image: post.image})
+        .insert({title: post.title, description: post.description, image: post.image, flag: post.flag})
         .select();
 
         window.location = "/";
@@ -37,6 +40,18 @@ const Create = () => {
     return (
         <div className="Create">
         <form className="Create-form" onSubmit={createPost}>
+          <div className='Flags'>
+            <label>
+              Flag:
+              <select name="flag" value={post.flag} onChange={handleChange}>
+              <option value=""></option>
+                <option value="Question">Question</option>
+                <option value="Opinion">Opinion</option>
+                <option value="Funny">Funny</option>
+                <option value="Flex">Flex</option>
+              </select>
+            </label>
+          </div>
           <label>
             Title:
             <input
@@ -65,7 +80,7 @@ const Create = () => {
                 checked={inputType === "upload"}
                 onChange={handleInputTypeChange}
               />
-              <label>Upload Image</label>
+              <label>Upload</label>
               </div>
             
               <div className='radioButton'>
@@ -76,14 +91,14 @@ const Create = () => {
                 checked={inputType === "url"}
                 onChange={handleInputTypeChange}
               />
-              <label>Image URL</label>
+              <label>URL</label>
             </div>
           </div>
         {inputType === "upload" && (
           <input
             type="file"
             name="image"
-            accept={"image/*" && "video/*"}
+            accept={"image/*"}
             onChange={handleChange}
           />
       )}

@@ -3,15 +3,16 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { FaThumbsUp } from 'react-icons/fa';
 import { supabase } from '../client'
-import * as fileType from 'file-type';
+import ReactPlayer from 'react-player'
 import './Read.css'
+import { CircularProgress } from '@mui/material';
 
 const Read = ({data}) => {
 
     const {id} = useParams();
-    const [post, setPost] = useState({id: null, title: "", time: "", image: "", likes: 0, description: ''});
+    const [post, setPost] = useState(null);
     const [comments, setComments] = useState([]);
-    const [mediaT, setMediaType] = useState("")
+
 
     function getTimeAgoString(timestamp) {
     const milliseconds = Date.now() - Date.parse(timestamp);
@@ -47,25 +48,26 @@ const Read = ({data}) => {
   }
 
     useEffect(() => {
-        const result = data.filter(item => String(item.id) === id)[0];
-        // const media = result.image;
-        
-        // const setType = async () => {
-          
-        // const fileBuffer = await fetch(media).then(response => response.arrayBuffer());
-        // const fileMime = fileType(fileBuffer)?.mime;
-        //   let mediaType = '';
-        //   if (fileMime?.startsWith('video/')) {
-        //     mediaType = 'video';
-        //   } else if (fileMime?.startsWith('image/')) {
-        //     mediaType = 'image';
-        //   }
-        //   setMediaType(mediaType);
-        // }
-
-        // setType();
-        setPost({title: result.title, time: result.time, image: result.image, likes: result.likes, description: result.description});
-
+       
+        const fetchPostData = async () => {
+          const { data, error } = await supabase
+            .from('Posts')
+            .select()
+            .eq('id', id);
+          if (error) console.log(error);
+          else {
+            const p = data[0];
+            setPost({
+              title: p.title,
+              time: p.time,
+              image: p.image,
+              likes: p.likes,
+              description: p.description,
+            });
+          }
+        };
+    
+        fetchPostData();
         const fetchComments = async () => {
           const { data: comments, error } = await supabase
             .from('Comments')
@@ -117,17 +119,20 @@ const Read = ({data}) => {
 
     return (
         <div className="ReadPosts">
-            <div className="post-header">
+            { post == null ?
+            <div className='progress-container'>
+              <CircularProgress />
+            </div> 
+            :
+            <div>
+              <div className="post-header">
                 <span className="post-time">{getTimeAgoString(post.time)}</span>
                 <h2 className="post-title">{post.title}</h2>
                 <p className="post-description">{post.description}</p>
             </div>
             <div className="post-image">
-              {mediaT === 'video' ? (
-                    <video controls>
-                        <source src={post.image} type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
+              {ReactPlayer.canPlay(post.image) ? (
+                <ReactPlayer url={post.image} playing='true' controls='true' pip='true' width={"100%"}/>
                 ) : (
                 <img src={post.image} alt="post image"/>
                 )
@@ -157,6 +162,8 @@ const Read = ({data}) => {
                     <button type="submit">Comment</button>
                 </form>
             </div>
+            </div>
+            }
         </div>  
     )
 }

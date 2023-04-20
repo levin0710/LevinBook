@@ -1,10 +1,19 @@
 import React from 'react';
 import './PostInFeed.css'
 import { Link } from 'react-router-dom'
-
+import ReactPlayer from 'react-player'
 
 const PostInFeed = ({props}) => {
   
+  const imageStyles = {
+    width: '14.24rem',
+    height: '8rem',
+    objectFit: 'cover',
+    marginRight: '2rem',
+    marginTop: '1rem',
+    boxShadow: '0 0 0 3px var(--primary-color)',
+    borderRadius: '4px'
+  };
   function getTimeAgoString(timestamp) {
     const milliseconds = Date.now() - Date.parse(timestamp);
     const seconds = Math.floor(milliseconds / 1000);
@@ -41,7 +50,13 @@ const PostInFeed = ({props}) => {
   return (
       <Link style={{ textDecoration: 'none' }} to={'read/'+ props.id}>
         <div className="post">
-          <img src={props.image} alt={props.title} className="post-mini-image" />
+          {ReactPlayer.canPlay(props.image) ? (
+                <ReactPlayer url={props.image} className='post-mini-image ' style={imageStyles} 
+                width={imageStyles.width}  height={imageStyles.height} />
+                ) : (
+                <img src={props.image} alt="post image" className='post-mini-image '/>
+                )
+          }
           <div className="post-content">
             <p className="post-time">{getTimeAgoString(props.date)}</p>
             <h2 className="post-title">{props.title}</h2>

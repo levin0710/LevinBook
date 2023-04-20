@@ -11,6 +11,7 @@
     height: 50px; /* set the height of the navbar to 50px */
     padding: 0 20px; /* reduce the padding on the top and sides */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
   }
   
   .search-bar {
@@ -52,6 +53,7 @@
   }
   
   .app-container {
-    margin-top: 15px;
+    margin-top: 25px;
   }
+  
   

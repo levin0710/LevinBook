@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 10px;
+  
   border-radius: 10px;
 }
 
@@ -39,4 +39,11 @@
     color: #fff;
   }
   
+  .progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
   

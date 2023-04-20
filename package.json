@@ -9,12 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-free": "^6.4.0",
+    "@mui/material": "^5.12.1",
     "file-type": "^18.2.1",
     "filetype": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-player": "^2.12.0",
     "react-router-dom": "^6.10.0",
     "recharts": "^2.5.0"
   },
