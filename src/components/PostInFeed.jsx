@@ -58,7 +58,7 @@ const PostInFeed = ({props}) => {
                 )
           }
           <div className="post-content">
-            <p className="post-time">{getTimeAgoString(props.date)}</p>
+            <p className="post-time">{"@"+props.user_name + " - " + getTimeAgoString(props.date)}</p>
             <h2 className="post-title">{props.title}</h2>
             <p className="post-likes">{props.likes} Upvotes</p>
           </div>

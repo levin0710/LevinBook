@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { supabase } from '../client'
 
 import './NavBar.css';
 
@@ -15,6 +16,11 @@ const NavBar = ({data, onSearch}) => {
     } else {
       onSearch(data); // add this line
     }
+  };
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) console.log("Error signing out:", error.message);
   };
   
 
@@ -33,6 +39,7 @@ const NavBar = ({data, onSearch}) => {
           <Link className="link" to="/new">
             Create Post
           </Link>
+          <button className="link" onClick={signOut}>Sign Out</button>
         </div>
 
       </div>

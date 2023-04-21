@@ -53,15 +53,15 @@ const App = () => {
       children:[
         {
           index: true,
-          element: <Feed data={filteredPosts}/>
+          element: <Feed data={filteredPosts} user={user}/>
         },
         {
           path:"/edit/:id",
-          element: <Edit data={posts} />
+          element: <Edit data={posts} user={user} />
         },
         {
           path:"/new",
-          element: <Create/>
+          element: <Create user={user}/>
         },
         {  
           path:"/read/:id",

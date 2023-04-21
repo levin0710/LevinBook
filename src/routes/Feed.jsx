@@ -48,17 +48,24 @@ const Feed = (props) => {
         setPosts(data)
     }
 
+    const userPosts = () => {
+        const filteredData = props.data.filter((item) =>    
+                item.userID.toLowerCase().includes(props.user.id)
+            );
+        
+            setPosts(filteredData);
+      
+           
+    };
+
     return (
         <div className='feed'>
             <div className='Order'>
                 <h3>Order by: </h3>
                 <button onClick={sortBy}>Popular</button>
                 <button onClick={sortBy}>Time</button>
-            </div>
-            <div className='Order'>
-                    <h3>
-                    Flag:
-                    </h3>
+                <h3>Filter by: </h3>
+                <button onClick={userPosts}>Your Posts</button>
                     <select name="flag" value={flag} onChange={handleChange}>
                         <option value=""></option>
                         <option value="Question">Question</option>
@@ -66,12 +73,13 @@ const Feed = (props) => {
                         <option value="Funny">Funny</option>
                         <option value="Flex">Flex</option>
                     </select>
-                    
-                </div>      
+            </div>  
             {
                 posts && posts.length > 0 ?
                 posts.map((post,index) => 
-                   <PostInFeed props={{image: post.image, title: post.title, date: post.time, id: post.id, likes: post.likes, flag: post.flag}}/>
+                   <PostInFeed props={{image: post.image, title: post.title, 
+                    date: post.time, id: post.id, likes: post.likes, 
+                    flag: post.flag, userID: post.userID, user_name: post.user_name}}/>
                 ) :  <div className='progress-container'>
                         <CircularProgress />
                     </div>

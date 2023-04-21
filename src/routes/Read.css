@@ -89,3 +89,14 @@
     text-align: justify;
   }
   
+  .comment-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+  
+  .comment-text {
+    margin-right: 1rem;
+  }
+  

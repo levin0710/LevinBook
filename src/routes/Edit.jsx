@@ -4,7 +4,7 @@ import { supabase } from '../client'
 import './Create.css'
 
 
-const Edit = ({data}) => {
+const Edit = ({data, user}) => {
 
     const {id} = useParams();
     const [post, setPost] = useState({title: '', description: '', image: '', flag: ''});
@@ -16,7 +16,7 @@ const Edit = ({data}) => {
 
     useEffect(() => {
         const result = data.filter(item => String(item.id) === id)[0];
-        setPost({title: result.title, time: result.time, image: result.image, description: result.description});
+        setPost({title: result.title, time: result.time, image: result.image, description: result.description, userID: result.userID});
     }, [data, id]);
 
     // DELETE post
@@ -57,7 +57,9 @@ const Edit = ({data}) => {
     }
     
     return (
+      
         <div className="Create">
+          {user.id == post.userID ? (
         <form className-="Create-form" onSubmit={updatePost}>
         <div className='Flags'>
             <label>
@@ -92,7 +94,10 @@ const Edit = ({data}) => {
           
           <button type="submit">Submit</button>
           <button className="deleteButton" onClick={deletePost}>Delete</button>
-      </form>
+      </form> ) : (
+        <h4>You are not authorized to edit this post. Please return to the homepage.</h4>
+      )
+      }
     </div>  
     )
 }

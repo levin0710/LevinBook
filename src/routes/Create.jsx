@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './Create.css'
 import { supabase } from '../client'
 
-const Create = () => {
+const Create = ({user}) => {
 
-    const [post, setPost] = useState({title: '', description: '', image: '', flag: ''});
+    const [post, setPost] = useState({title: '', description: '', image: '', flag: '', userID: user.id, user_name: user.user_metadata.user_name});
     const [inputType, setInputType] = useState('upload');
 
 
@@ -32,7 +32,7 @@ const Create = () => {
         console.log("CALLING POST")
         await supabase
         .from('Posts')
-        .insert({title: post.title, description: post.description, image: post.image, flag: post.flag})
+        .insert({title: post.title, description: post.description, image: post.image, flag: post.flag, userID: post.userID , user_name: post.user_name})
         .select();
 
         window.location = "/";

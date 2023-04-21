@@ -63,6 +63,8 @@ const Read = ({data, user}) => {
               image: p.image,
               likes: p.likes,
               description: p.description,
+              userID: p.userID,
+              user_name: p.user_name
             });
           }
         };
@@ -100,7 +102,7 @@ const Read = ({data, user}) => {
       console.log("CALLING POST")
       await supabase
       .from('Comments')
-      .insert({comment: comment, postId: id})
+      .insert({comment: comment, postId: id, user_name: user.user_metadata.user_name})
       .select();
 
       const fetchComments = async () => {
@@ -116,6 +118,26 @@ const Read = ({data, user}) => {
       fetchComments();
   }
 
+  const deleteComment = async (event, commentId) => {
+    event.preventDefault();
+    console.log(event.target.id)
+    await supabase
+    .from('Comments')
+    .delete()
+    .eq('id', commentId); 
+
+    const fetchComments = async () => {
+      const { data: comments, error } = await supabase
+        .from('Comments')
+        .select()
+        .eq('postId', id)
+        .order('time', { ascending: false });
+      if (error) console.log(error);
+      else setComments(comments);
+    };
+    
+    fetchComments();
+}
 
     return (
         <div className="ReadPosts">
@@ -126,6 +148,7 @@ const Read = ({data, user}) => {
             :
             <div>
               <div className="post-header">
+                <p className="post-description">{"@"+post.user_name}</p>
                 <span className="post-time">{getTimeAgoString(post.time)}</span>
                 <h2 className="post-title">{post.title}</h2>
                 <p className="post-description">{post.description}</p>
@@ -143,17 +166,31 @@ const Read = ({data, user}) => {
                 <button className="upvote-button" onClick={handleUpvote}>
                   <FaThumbsUp /> {post.likes}
                 </button>
+                {user.id == post.userID ? (
                 <Link tyle={{ textDecoration: 'none' }} to={'../../edit/'+ id}>
                     <button className="edit-button">Edit</button>
-                </Link>
+                </Link> ) : (
+                  <div></div>
+                )
+                }
             </div>
             <div className="post-comments">
                 <h3>Comments</h3>
                 {comments && comments.length > 0 ?
                 comments.map((comment, index) => (
-                    <div key={index} className="comment">
-                        <h6> {getTimeAgoString(comment.time)}</h6>
-                        <p>{comment.comment}</p>
+                    <div>
+                      <div key={index} className="comment">
+                          <h6> {comment.user_name + " - "+ getTimeAgoString(comment.time)}</h6>
+                          <div class="comment-container">
+                              <p class="comment-text">{comment.comment}</p>
+                              {user.user_metadata.user_name === comment.user_name ? (
+                                <button onClick={(event) => deleteComment(event, comment.id)}>Delete</button>
+                              ) : (
+                                <div></div>
+                              )}
+                            </div> 
+                      </div>
+                      
                     </div>
                 )) : <h4>{'Be the first comment!'}</h4>
               }
