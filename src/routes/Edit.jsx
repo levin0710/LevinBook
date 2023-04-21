@@ -7,7 +7,12 @@ import './Create.css'
 const Edit = ({data}) => {
 
     const {id} = useParams();
-    const [post, setPost] = useState({id: null, title: "", time: "", image: "", description: ""});
+    const [post, setPost] = useState({title: '', description: '', image: '', flag: ''});
+    const [inputType, setInputType] = useState('upload');
+
+    const handleInputTypeChange = (e) => {
+      setInputType(e.target.value);
+    }
 
     useEffect(() => {
         const result = data.filter(item => String(item.id) === id)[0];
@@ -45,7 +50,7 @@ const Edit = ({data}) => {
 
         await supabase
         .from('Posts')
-        .update({title: post.title, time: post.time, image: post.image, description: post.description})
+        .update({title: post.title, time: post.time, image: post.image, description: post.description, flag: post.flag})
         .eq('id', id);
 
         window.location = '/';
@@ -54,6 +59,18 @@ const Edit = ({data}) => {
     return (
         <div className="Create">
         <form className-="Create-form" onSubmit={updatePost}>
+        <div className='Flags'>
+            <label>
+              Flag:
+              <select name="flag" value={post.flag} onChange={handleChange} defaultChecked={post.flag}>
+                <option value=""></option>
+                <option value="Question">Question</option>
+                <option value="Opinion">Opinion</option>
+                <option value="Funny">Funny</option>
+                <option value="Flex">Flex</option>
+              </select>
+            </label>
+          </div>
           <label>
             Title:
             <input
@@ -72,15 +89,7 @@ const Edit = ({data}) => {
               className='description'
             />
           </label>
-          <label>
-            Image URL:
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleChange}
-            />
-          </label>
+          
           <button type="submit">Submit</button>
           <button className="deleteButton" onClick={deletePost}>Delete</button>
       </form>

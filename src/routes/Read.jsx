@@ -7,7 +7,7 @@ import ReactPlayer from 'react-player'
 import './Read.css'
 import { CircularProgress } from '@mui/material';
 
-const Read = ({data}) => {
+const Read = ({data, user}) => {
 
     const {id} = useParams();
     const [post, setPost] = useState(null);
