@@ -21,6 +21,7 @@ const NavBar = ({data, onSearch}) => {
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) console.log("Error signing out:", error.message);
+    window.location = '/';
   };
   
 
@@ -37,9 +38,9 @@ const NavBar = ({data, onSearch}) => {
             Home
           </Link>
           <Link className="link" to="/new">
-            Create Post
+            Create
           </Link>
-          <button className="link" onClick={signOut}>Sign Out</button>
+          <button  onClick={signOut}>Sign Out</button>
         </div>
 
       </div>
