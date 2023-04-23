@@ -40,7 +40,11 @@ The following **additional** features are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough:
+
+<a href="https://www.loom.com/share/8d97eaf1244944d7a4537a3423c50fa0">
+    <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/8d97eaf1244944d7a4537a3423c50fa0-with-play.gif">
+</a>
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...  
